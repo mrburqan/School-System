@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="SchoolSystem.API/SchoolSystem.API.csproj" Id="df9cdfe1-16e9-4dec-9017-3c2aa5348d8f" />
+  <Project Path="SchoolSystem.Application/SchoolSystem.Application.csproj" Id="cac94622-70ea-4dd6-9e5c-4bdb5e52ca3a" />
+  <Project Path="SchoolSystem.Core/SchoolSystem.Core.csproj" Id="f0874e90-ac6e-4588-b173-2ac54284cb0e" />
+  <Project Path="SchoolSystem.Infrastructure/SchoolSystem.Infrastructure.csproj" Id="cbc62fbb-a451-4700-a816-bb9f2afb9135" />
+  <Project Path="SchoolSystem.Web/SchoolSystem.Web.csproj" Id="39936225-58f4-472b-a557-2327509efd74" />
+</Solution>

@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchoolSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ismail_Association">
+          <Key>
+            <PropertyRef Name="ClientID" />
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ismail_Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ismail_Clients">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Ismail_ErrorLogs">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserMessage" Type="nvarchar" MaxLength="100" />
+          <Property Name="TechnicalMessage" Type="nvarchar(max)" />
+          <Property Name="StackTraces" Type="nvarchar(max)" />
+          <Property Name="Source" Type="nvarchar(max)" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="IsResolve" Type="bit" />
+          <Property Name="ResolvedAt" Type="datetime" />
+          <Property Name="ResolutionNote" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Ismail_Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="GenderDesc" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ismail_Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ismail_StudentMarks">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="Physics" Type="int" Nullable="false" />
+          <Property Name="Math" Type="int" Nullable="false" />
+          <Property Name="Chemistry" Type="int" Nullable="false" />
+          <Property Name="English" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ismail_TranslationCientLanguage">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ismail_Types">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="TypeDesc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ClassID">
+          <End Role="Ismail_Classes" Type="Self.Ismail_Classes" Multiplicity="1" />
+          <End Role="Ismail_Association" Type="Self.Ismail_Association" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Ismail_Association">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientID">
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="1" />
+          <End Role="Ismail_Association" Type="Self.Ismail_Association" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Clients">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ismail_Association">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenderID">
+          <End Role="Ismail_Gender" Type="Self.Ismail_Gender" Multiplicity="1" />
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Ismail_Clients">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_language_Translation">
+          <End Role="Ismail_Languages" Type="Self.Ismail_Languages" Multiplicity="1" />
+          <End Role="Ismail_TranslationCientLanguage" Type="Self.Ismail_TranslationCientLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Languages">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="Ismail_TranslationCientLanguage">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SM_UserID">
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="1" />
+          <End Role="Ismail_StudentMarks" Type="Self.Ismail_StudentMarks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Clients">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ismail_StudentMarks">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeID">
+          <End Role="Ismail_Types" Type="Self.Ismail_Types" Multiplicity="1" />
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Ismail_Clients">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation">
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="1" />
+          <End Role="Ismail_TranslationCientLanguage" Type="Self.Ismail_TranslationCientLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Clients">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ismail_TranslationCientLanguage">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Ismail_AssociationDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdminUserID" Type="int" Mode="In" />
+          <Parameter Name="OperationType" Type="varchar" Mode="In" />
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ClassID" Type="int" Mode="In" />
+          <Parameter Name="NewClassID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="SchoolSystemModelStoreContainer">
+          <EntitySet Name="Ismail_Association" EntityType="Self.Ismail_Association" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_Classes" EntityType="Self.Ismail_Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_Clients" EntityType="Self.Ismail_Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_ErrorLogs" EntityType="Self.Ismail_ErrorLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_Gender" EntityType="Self.Ismail_Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_Languages" EntityType="Self.Ismail_Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_StudentMarks" EntityType="Self.Ismail_StudentMarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_TranslationCientLanguage" EntityType="Self.Ismail_TranslationCientLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ismail_Types" EntityType="Self.Ismail_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClassID" Association="Self.FK_ClassID">
+            <End Role="Ismail_Classes" EntitySet="Ismail_Classes" />
+            <End Role="Ismail_Association" EntitySet="Ismail_Association" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientID" Association="Self.FK_ClientID">
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+            <End Role="Ismail_Association" EntitySet="Ismail_Association" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenderID" Association="Self.FK_GenderID">
+            <End Role="Ismail_Gender" EntitySet="Ismail_Gender" />
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_language_Translation" Association="Self.FK_language_Translation">
+            <End Role="Ismail_Languages" EntitySet="Ismail_Languages" />
+            <End Role="Ismail_TranslationCientLanguage" EntitySet="Ismail_TranslationCientLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SM_UserID" Association="Self.FK_SM_UserID">
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+            <End Role="Ismail_StudentMarks" EntitySet="Ismail_StudentMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeID" Association="Self.FK_TypeID">
+            <End Role="Ismail_Types" EntitySet="Ismail_Types" />
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation" Association="Self.FK_User_Translation">
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+            <End Role="Ismail_TranslationCientLanguage" EntitySet="Ismail_TranslationCientLanguage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchoolSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ismail_Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ismail_Clients" Relationship="Self.Ismail_Association" FromRole="Ismail_Classes" ToRole="Ismail_Clients" />
+        </EntityType>
+        <EntityType Name="Ismail_Clients">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Ismail_Gender" Relationship="Self.FK_GenderID" FromRole="Ismail_Clients" ToRole="Ismail_Gender" />
+          <NavigationProperty Name="Ismail_StudentMarks" Relationship="Self.FK_SM_UserID" FromRole="Ismail_Clients" ToRole="Ismail_StudentMarks" />
+          <NavigationProperty Name="Ismail_Types" Relationship="Self.FK_TypeID" FromRole="Ismail_Clients" ToRole="Ismail_Types" />
+          <NavigationProperty Name="Ismail_TranslationCientLanguage" Relationship="Self.FK_User_Translation" FromRole="Ismail_Clients" ToRole="Ismail_TranslationCientLanguage" />
+          <NavigationProperty Name="Ismail_Classes" Relationship="Self.Ismail_Association" FromRole="Ismail_Clients" ToRole="Ismail_Classes" />
+        </EntityType>
+        <EntityType Name="Ismail_ErrorLogs">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserMessage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TechnicalMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StackTraces" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="IsResolve" Type="Boolean" />
+          <Property Name="ResolvedAt" Type="DateTime" Precision="3" />
+          <Property Name="ResolutionNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ismail_Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="GenderDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ismail_Clients" Relationship="Self.FK_GenderID" FromRole="Ismail_Gender" ToRole="Ismail_Clients" />
+        </EntityType>
+        <EntityType Name="Ismail_Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ismail_TranslationCientLanguage" Relationship="Self.FK_language_Translation" FromRole="Ismail_Languages" ToRole="Ismail_TranslationCientLanguage" />
+        </EntityType>
+        <EntityType Name="Ismail_StudentMarks">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Physics" Type="Int32" Nullable="false" />
+          <Property Name="Math" Type="Int32" Nullable="false" />
+          <Property Name="Chemistry" Type="Int32" Nullable="false" />
+          <Property Name="English" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ismail_Clients" Relationship="Self.FK_SM_UserID" FromRole="Ismail_StudentMarks" ToRole="Ismail_Clients" />
+        </EntityType>
+        <EntityType Name="Ismail_TranslationCientLanguage">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ismail_Clients" Relationship="Self.FK_User_Translation" FromRole="Ismail_TranslationCientLanguage" ToRole="Ismail_Clients" />
+          <NavigationProperty Name="Ismail_Languages" Relationship="Self.FK_language_Translation" FromRole="Ismail_TranslationCientLanguage" ToRole="Ismail_Languages" />
+        </EntityType>
+        <EntityType Name="Ismail_Types">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="TypeDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ismail_Clients" Relationship="Self.FK_TypeID" FromRole="Ismail_Types" ToRole="Ismail_Clients" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_GenderID">
+          <End Role="Ismail_Gender" Type="Self.Ismail_Gender" Multiplicity="1" />
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Ismail_Clients">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SM_UserID">
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="1" />
+          <End Role="Ismail_StudentMarks" Type="Self.Ismail_StudentMarks" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Clients">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ismail_StudentMarks">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeID">
+          <End Role="Ismail_Types" Type="Self.Ismail_Types" Multiplicity="1" />
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Ismail_Clients">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Translation">
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="1" />
+          <End Role="Ismail_TranslationCientLanguage" Type="Self.Ismail_TranslationCientLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Clients">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ismail_TranslationCientLanguage">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_language_Translation">
+          <End Role="Ismail_Languages" Type="Self.Ismail_Languages" Multiplicity="1" />
+          <End Role="Ismail_TranslationCientLanguage" Type="Self.Ismail_TranslationCientLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ismail_Languages">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="Ismail_TranslationCientLanguage">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ismail_Association">
+          <End Role="Ismail_Classes" Type="Self.Ismail_Classes" Multiplicity="*" />
+          <End Role="Ismail_Clients" Type="Self.Ismail_Clients" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SchoolSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ismail_Classes" EntityType="Self.Ismail_Classes" />
+          <EntitySet Name="Ismail_Clients" EntityType="Self.Ismail_Clients" />
+          <EntitySet Name="Ismail_ErrorLogs" EntityType="Self.Ismail_ErrorLogs" />
+          <EntitySet Name="Ismail_Gender" EntityType="Self.Ismail_Gender" />
+          <EntitySet Name="Ismail_Languages" EntityType="Self.Ismail_Languages" />
+          <EntitySet Name="Ismail_StudentMarks" EntityType="Self.Ismail_StudentMarks" />
+          <EntitySet Name="Ismail_TranslationCientLanguage" EntityType="Self.Ismail_TranslationCientLanguage" />
+          <EntitySet Name="Ismail_Types" EntityType="Self.Ismail_Types" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_GenderID" Association="Self.FK_GenderID">
+            <End Role="Ismail_Gender" EntitySet="Ismail_Gender" />
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SM_UserID" Association="Self.FK_SM_UserID">
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+            <End Role="Ismail_StudentMarks" EntitySet="Ismail_StudentMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeID" Association="Self.FK_TypeID">
+            <End Role="Ismail_Types" EntitySet="Ismail_Types" />
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Translation" Association="Self.FK_User_Translation">
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+            <End Role="Ismail_TranslationCientLanguage" EntitySet="Ismail_TranslationCientLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_language_Translation" Association="Self.FK_language_Translation">
+            <End Role="Ismail_Languages" EntitySet="Ismail_Languages" />
+            <End Role="Ismail_TranslationCientLanguage" EntitySet="Ismail_TranslationCientLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="Ismail_Association" Association="Self.Ismail_Association">
+            <End Role="Ismail_Classes" EntitySet="Ismail_Classes" />
+            <End Role="Ismail_Clients" EntitySet="Ismail_Clients" />
+          </AssociationSet>
+          <FunctionImport Name="Ismail_AssociationDynamic" ReturnType="Collection(SchoolSystemModel.Ismail_AssociationDynamic_Result)">
+            <Parameter Name="AdminUserID" Mode="In" Type="Int32" />
+            <Parameter Name="OperationType" Mode="In" Type="String" />
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClassID" Mode="In" Type="Int32" />
+            <Parameter Name="NewClassID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Ismail_AssociationDynamic_Result">
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ClientID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="TypeDesc" Nullable="false" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchoolSystemModelStoreContainer" CdmEntityContainer="SchoolSystemEntities">
+          <EntitySetMapping Name="Ismail_Classes">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_Classes">
+              <MappingFragment StoreEntitySet="Ismail_Classes">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_Clients">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_Clients">
+              <MappingFragment StoreEntitySet="Ismail_Clients">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_ErrorLogs">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_ErrorLogs">
+              <MappingFragment StoreEntitySet="Ismail_ErrorLogs">
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
+                <ScalarProperty Name="UserMessage" ColumnName="UserMessage" />
+                <ScalarProperty Name="TechnicalMessage" ColumnName="TechnicalMessage" />
+                <ScalarProperty Name="StackTraces" ColumnName="StackTraces" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsResolve" ColumnName="IsResolve" />
+                <ScalarProperty Name="ResolvedAt" ColumnName="ResolvedAt" />
+                <ScalarProperty Name="ResolutionNote" ColumnName="ResolutionNote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_Gender">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_Gender">
+              <MappingFragment StoreEntitySet="Ismail_Gender">
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="GenderDesc" ColumnName="GenderDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_Languages">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_Languages">
+              <MappingFragment StoreEntitySet="Ismail_Languages">
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_StudentMarks">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_StudentMarks">
+              <MappingFragment StoreEntitySet="Ismail_StudentMarks">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Physics" ColumnName="Physics" />
+                <ScalarProperty Name="Math" ColumnName="Math" />
+                <ScalarProperty Name="Chemistry" ColumnName="Chemistry" />
+                <ScalarProperty Name="English" ColumnName="English" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_TranslationCientLanguage">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_TranslationCientLanguage">
+              <MappingFragment StoreEntitySet="Ismail_TranslationCientLanguage">
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ismail_Types">
+            <EntityTypeMapping TypeName="SchoolSystemModel.Ismail_Types">
+              <MappingFragment StoreEntitySet="Ismail_Types">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="TypeDesc" ColumnName="TypeDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SchoolSystemModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Ismail_Association" TypeName="SchoolSystemModel.Ismail_Association" StoreEntitySet="Ismail_Association">
+            <EndProperty Name="Ismail_Classes">
+              <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+            </EndProperty>
+            <EndProperty Name="Ismail_Clients">
+              <ScalarProperty Name="UserID" ColumnName="ClientID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="Ismail_AssociationDynamic" FunctionName="SchoolSystemModel.Store.Ismail_AssociationDynamic">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolSystemModel.Ismail_AssociationDynamic_Result">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeDesc" ColumnName="TypeDesc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
